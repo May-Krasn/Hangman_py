@@ -60,8 +60,7 @@ def exported_clear():
             for file in os.listdir("Exported"):
                 os.remove(os.path.join("Exported", file))
     except FileNotFoundError:
-        print("Exported folder not found")
-        exit(2)
+        os.mkdir("Exported")
 
 
 #   ====== WINDOW =======
