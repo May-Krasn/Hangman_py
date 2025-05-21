@@ -1,12 +1,15 @@
 import tkinter as tk
 
-from DataWork.users_work import add_user
-from shared_stuff import window
-import menu.shared_menu as sm
+from src.DataWork.users_work import add_user
+from src.menu.shared_stuff import window
+import src.menu.shared_menu as sm
 
 #  ==== CREATE ====
 
 def create_for_reg():
+    """
+    widgets for Register window
+    """
     global nameLabel, nameTextField
     nameLabel = tk.Label(master=window, text="Name:")
     nameLabel.config(font=("Comic Sans MS", 16), bg="#E4E2E2")
@@ -15,6 +18,9 @@ def create_for_reg():
     nameTextField.bind("<KeyPress>", sm.on_key_press)
 
 def place_on_window():
+    """
+    Places widgets on window
+    """
     sm.loginLabel.place(x=100, y=95)
     nameLabel.place(x=100, y=165)
     sm.passwordLabel.place(x=70, y=235)
@@ -25,6 +31,9 @@ def place_on_window():
     sm.backButton.place(x=380, y=300, width=160, height=40)
 
 def reg_window():
+    """
+    function called from other class to create window for Registration
+    """
     sm.create_shared(lambda: take_input())
     create_for_reg()
     place_on_window()
@@ -33,6 +42,10 @@ def reg_window():
 #   ==== Button Work ====
 
 def take_input():
+    """
+    Info validation for Confirm button
+    :return: error or success label on window
+    """
     inputLogin = sm.loginTextField.get("1.0", tk.END).strip()
     inputName = nameTextField.get("1.0", tk.END).strip()
     inputPassword = sm.passwordTextField.get().strip()

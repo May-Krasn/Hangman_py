@@ -1,9 +1,9 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 
-from shared_stuff import window
-from DataWork.users_work import get_stats
-from GameMenu.SharedMenu import back_window
+from src.menu.shared_stuff import window
+from src.DataWork.users_work import get_stats
+from src.GameMenu.SharedMenu import back_window
 
 # ICONS
 icon_games_total = None
@@ -15,6 +15,11 @@ g_total, g_won, time_played = None, None, None
 export_label = None
 
 def show_stats_window(player_login, player_name):
+    """
+    Creates widgets
+    :param player_login: str
+    :param player_name: str
+    """
     global icon_games_total, icon_games_won, icon_time_play, g_total, g_won, time_played
     g_total, g_won, time_played = get_stats(player_login)
 
@@ -48,6 +53,11 @@ def show_stats_window(player_login, player_name):
     back_button.place(relx=0.5, y=480, anchor=tk.CENTER)
 
 def export(player_name):
+    """
+    Exports statistics
+    :param player_name: str
+    :return: creates file in "Exported" folder
+    """
     global export_label
     try:
         open(f"Exported/{player_name}_stats", "x")

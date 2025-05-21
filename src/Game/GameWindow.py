@@ -1,7 +1,7 @@
 import tkinter as tk
-from shared_stuff import window, clear_window
+from src.menu.shared_stuff import window, clear_window
 from string import ascii_lowercase
-from DataWork.words_work import get_word, get_word_random
+from src.DataWork.words_work import get_word, get_word_random
 import time
 
 
@@ -16,6 +16,9 @@ def start_game(category, difficulty, errors_got):
 # ====== GAME
 
 def hangman():
+    """
+    Draws hangman depending no amount of errors
+    """
     global errors, canvas
 
     # depending on amount of errors choosen by player
@@ -65,11 +68,16 @@ def hangman():
                 window.after(3000, lambda: game_over(False))
 
 def game_over(won):
+    """
+    Creates "game over" label and writes statistics if it's not Guest playing
+    :param won:
+    :return:
+    """
     global errors, corrects, letters, word
     errors, corrects = 0, 0
     letters.clear()
     word = ""
-    from GameMenu.PlayerMenu import place_on_window, login, name
+    from src.GameMenu.PlayerMenu import place_on_window, login, name
     clear_window()
 
     end_time = time.time() - start_time
@@ -77,7 +85,7 @@ def game_over(won):
     secs = int(end_time) % 60
 
     if login != "Guest":
-        from DataWork.users_work import update_stats
+        from src.DataWork.users_work import update_stats
         if won:
             update_stats(login, 1, 1, mins, secs)
         else:
@@ -88,6 +96,11 @@ def game_over(won):
 # ========= WORD
 
 def place_word(cat, diff):
+    """
+    Gets word from database, creates '____' for it on the window
+    :param cat:
+    :param diff:
+    """
     global letters, word
     if cat == "random" and diff == 0:
         cat, word = get_word_random()
@@ -111,6 +124,9 @@ def place_word(cat, diff):
 # ========= KEYBOARD
 
 def place_keyboard():
+    """
+    Creates and places keyboard buttons
+    """
     global buttons
 
     for char in ascii_lowercase:
@@ -121,6 +137,10 @@ def place_keyboard():
         else: buttons.get(ascii_lowercase[i]).place(x=155+(60*(i%10)), y=500, width=50, height=50)
 
 def on_click(x):
+    """
+    Gets char from clicked button, adds it to word or adds error to hangman
+    :param x: clicked button char
+    """
     global corrects
 
     if not word.__contains__(x):
@@ -147,6 +167,9 @@ def on_click(x):
 # ========= CANVA
 
 def place_canva():
+    """
+    places canva for drawing errors
+    """
     global canvas
     canvas = tk.Canvas(master=window, width=200, height=250)
     canvas.place(x=430, y=10)

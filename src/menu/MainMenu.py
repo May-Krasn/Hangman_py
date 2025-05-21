@@ -1,24 +1,34 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 
-from shared_stuff import window, clear_window, hide_window, config_buttons
-from menu.RegisterUser import reg_window
-from menu.LoginUser import log_window
-from GameMenu.PlayerMenu import place_on_window as game_window
+from src.menu.shared_stuff import window, clear_window, hide_window, config_buttons
+from src.menu.RegisterUser import reg_window
+from src.menu.LoginUser import log_window
+from src.GameMenu.PlayerMenu import place_on_window as game_window
 
 #   ====== USER =======
 
 def register_user():
+    """
+    To go to Registration window
+    """
     clear_window()
     reg_window()
 
 def login_user():
+    """
+    To go to Login window
+    """
     clear_window()
     log_window()
 
 #   ====== GUEST GAME =======
 
 def start_guest():
+    """
+    Starting game as guest
+    Contains buttons to confirm or go back to main window
+    """
     hide_window()
     def resign():
         confirmation.destroy()
@@ -49,11 +59,19 @@ def start_guest():
 # Plus clearing exported stats
 
 def main():
+    """
+    Main function
+    """
     exported_clear()
     place_on_window()
     window.mainloop()
 
 def exported_clear():
+    """
+    checks exported directory. Clears it if there is anything in it
+    creates directory if it's not created
+    :return:
+    """
     import os
     try:
         if os.listdir("Exported"):
@@ -66,6 +84,9 @@ def exported_clear():
 #   ====== WINDOW =======
 
 def create_for_window():
+    """
+    Creates widgets
+    """
     global startguest, loginuser, registeruser, canvas, madeby, image, exitbutton
 
     startguest = tk.Button(master=window, text="Start as Guest", command=lambda: start_guest())
@@ -87,6 +108,9 @@ def create_for_window():
 
 
 def place_on_window():
+    """
+    Places widgets on window
+    """
     create_for_window()
     startguest.place(relx=0.5, y=160, width=160, height=40, anchor=tk.CENTER)
     loginuser.place(relx=0.5, y=260, width=160, height=40, anchor=tk.CENTER)

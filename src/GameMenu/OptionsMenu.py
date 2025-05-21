@@ -1,12 +1,15 @@
 import tkinter as tk
 
-from shared_stuff import window, hide_window, clear_window
-from GameMenu.SharedMenu import back_window
-from  DataWork.words_work import get_difficulty, get_all_categories
+from src.menu.shared_stuff import window, hide_window
+from src.GameMenu.SharedMenu import back_window
+from src.DataWork.words_work import get_difficulty, get_all_categories
 
 # ======== WINDOW
 
 def show_opt_window():
+    """
+    Creates widgets
+    """
     global cat_label, cat_button, cat_name, err_label, err_button, err_amount, diff_label, diff_button, diff_id, back_button
     cat_label = tk.Label(window, text=f"Current category: {cat_name}")
     err_label = tk.Label(window, text=f"Current errors allowed: {err_amount}")
@@ -21,6 +24,9 @@ def show_opt_window():
     place_opt_window()
 
 def place_opt_window():
+    """
+    Places widgets
+    """
     cat_label.place(relx=0.5, y=90, anchor=tk.CENTER)
     cat_button.place(relx=0.5, y=145, anchor=tk.CENTER)
     err_label.place(relx=0.5, y=210, anchor=tk.CENTER)
@@ -34,6 +40,10 @@ def place_opt_window():
 buttons = []
 lbl = None
 def change_cat():
+    """
+    Creates widgets to change category for the game
+    :return: category chosen by user
+    """
     hide_window()
     cats = get_all_categories()
 
@@ -70,6 +80,10 @@ def change_cat():
         return
 
 def change_diff():
+    """
+    Creates widgets to change difficulty for the game
+    :return: difficulty chosen by user
+    """
     global buttons, lbl
     hide_window()
     lbl = tk.Label(window, text="Choose difficulty", font=("Comic Sans MS", 20))
@@ -99,6 +113,10 @@ def on_click_diff(msg):
     return
 
 def change_err():
+    """
+    Creates widgets to change amount of errors for the game
+    :return: amount of errors chosen by user
+    """
     global buttons, lbl
     hide_window()
     lbl = tk.Label(window, text="Choose amount of errors", font=("Comic Sans MS", 20))
@@ -128,6 +146,9 @@ def on_click_errors(msg):
 # ==== configs
 
 def config_widgets():
+    """
+    configures widgets to game style
+    """
     for widget in window.winfo_children():
         if isinstance(widget, tk.Button):
             widget.config(font=("Comic Sans MS", 16), bg="#E4E2E2", fg="#000")

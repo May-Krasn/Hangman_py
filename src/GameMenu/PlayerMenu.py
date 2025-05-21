@@ -1,11 +1,14 @@
 import tkinter as tk
 from PIL import ImageTk, Image
 
-from shared_stuff import window, config_buttons, clear_window, hide_window
+from src.menu.shared_stuff import window, config_buttons, clear_window, hide_window
 
 #   ====== WINDOW =======
 
 def create_for_window(player_login, player_name):
+    """
+    Creates widgets
+    """
     global login, name
     login = player_login
     name = player_name
@@ -34,6 +37,11 @@ def create_for_window(player_login, player_name):
 
 
 def place_on_window(player_login, player_name):
+    """
+    Places widgets on window
+    :param player_login:
+    :param player_name:
+    """
     create_for_window(player_login, player_name)
     welcome_label.pack(expand=True)
     welcome_label.place(relx=0.5, y=50, anchor=tk.CENTER)
@@ -48,27 +56,36 @@ def place_on_window(player_login, player_name):
 # ===== BUTTON WORK =======
 
 def play_start():
+    """
+    starting game fun
+    """
     clear_window()
-    from Game.GameWindow import start_game
-    from GameMenu.OptionsMenu import cat_name, diff_id, err_amount
+    from src.Game.GameWindow import start_game
+    from src.GameMenu.OptionsMenu import cat_name, diff_id, err_amount
     start_game(cat_name, diff_id, err_amount)
 
 def show_stats():
+    """
+    showing statistic
+    """
     hide_window()
-    from GameMenu.StatsMenu import show_stats_window
+    from src.GameMenu.StatsMenu import show_stats_window
     show_stats_window(login, name)
 
-def options_fun():
-    hide_window()
-
 def logging_out():
+    """
+    logging out fun, going to Main menu
+    """
     clear_window()
-    from menu.MainMenu import place_on_window as mainplace
+    from src.menu.MainMenu import place_on_window as mainplace
     mainplace()
 
 def options_menu():
+    """
+    Options menu
+    """
     clear_window()
-    from GameMenu.OptionsMenu import show_opt_window
+    from src.GameMenu.OptionsMenu import show_opt_window
     show_opt_window()
 
 

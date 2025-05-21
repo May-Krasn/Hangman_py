@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from cryptography.fernet import Fernet
 
-import Database.Database_Users as db
+import src.Database.Database_Users as db
 
 # ====== ENGINE
 
@@ -15,6 +15,14 @@ db.users_database.metadata.create_all(engine_users)
 
 
 def add_user(login, name, password):
+    """
+    Adds user to database (From Register window)
+    Encrypts password and name
+    :param login: str
+    :param name: str
+    :param password: str
+    :return: user is created or user already exists
+    """
     with open("DataWork/key.txt", 'r') as f:
         cipher = Fernet(f.read())
     name = cipher.encrypt(name.encode())
@@ -51,6 +59,11 @@ def add_user(login, name, password):
     return "success"
 
 def login_user(login, password):
+    """
+    Logging user in, validating information given
+    :param login:
+    :param password:
+    """
     with open("DataWork/key.txt", 'r') as f:
         cipher = Fernet(f.read())
 
@@ -71,6 +84,11 @@ def login_user(login, password):
         return "wrong login"
 
 def get_stats(login):
+    """
+    Getting statistics by login of user
+    :param login:
+    :return:
+    """
     with open("DataWork/key.txt", 'r') as f:
         cipher = Fernet(f.read())
 
@@ -87,6 +105,15 @@ def get_stats(login):
         return g_total, g_won, time_total
 
 def update_stats(login, g_total1, g_won1, mins, secs):
+    """
+    Updating stats after the game is finished
+    :param login:
+    :param g_total1:
+    :param g_won1:
+    :param mins:
+    :param secs:
+    :return:
+    """
     with open("DataWork/key.txt", 'r') as f:
         cipher = Fernet(f.read())
 

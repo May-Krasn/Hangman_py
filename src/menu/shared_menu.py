@@ -1,11 +1,16 @@
 import tkinter as tk
 from string import ascii_letters, punctuation, digits
 
-from shared_stuff import window, clear_window, config_buttons
+from src.menu.shared_stuff import window, clear_window, config_buttons
 
 # ==== WINDOW ====
 
 def create_shared(fun : callable):
+    """
+    Creates shared widgets for Login and Register menu
+    :param fun: lambda for button creation
+    :return:
+    """
     global loginLabel, passwordLabel, loginTextField, passwordTextField, inputConfirm, backButton, errorLabel
     loginLabel = tk.Label(master=window, text="Login:")
     loginLabel.config(font=("Comic Sans MS", 16), bg="#E4E2E2")
@@ -29,13 +34,21 @@ def create_shared(fun : callable):
 #   ==== Button Work ====
 
 def back_window():
+    """
+    function for back to menu button
+    """
     clear_window()
-    from menu.MainMenu import place_on_window as mainplace
+    from src.menu.MainMenu import place_on_window as mainplace
     mainplace()
 
 # ==== Info valid ====
 
 def on_key_press(event):
+    """
+    Info validation for writing Login, Name and Password
+    :param event: the clicked button on keyboard
+    :return: 'break' to stop user from writing
+    """
     if event.keysym == "BackSpace":
         widget = event.widget
         if isinstance(widget, tk.Entry):

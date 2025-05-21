@@ -1,14 +1,17 @@
 import tkinter as tk
 
-from DataWork.users_work import login_user
-import menu.shared_menu as sm
-from GameMenu.PlayerMenu import place_on_window as game_window
-from shared_stuff import clear_window
+from src.DataWork.users_work import login_user
+import src.menu.shared_menu as sm
+from src.GameMenu.PlayerMenu import place_on_window as game_window
+from src.menu.shared_stuff import clear_window
 
 
 #   ====== WINDOW =======
 
 def place_on_window():
+    """
+    Places widgets on window
+    """
     sm.loginLabel.place(x=100, y=95)
     sm.passwordLabel.place(x=70, y=165)
     sm.loginTextField.place(x=180, y=90, width=360, height=60)
@@ -17,6 +20,9 @@ def place_on_window():
     sm.backButton.place(x=380, y=230, width=160, height=40)
 
 def log_window():
+    """
+    fun to go to Login window
+    """
     sm.create_shared(lambda: take_input())
     place_on_window()
 
@@ -24,6 +30,9 @@ def log_window():
 #   ==== Button Work ====
 
 def take_input():
+    """
+    Info validation for Confirm button
+    """
     inputLogin = sm.loginTextField.get("1.0", tk.END).strip()
     inputPassword = sm.passwordTextField.get().strip()
 
