@@ -4,6 +4,11 @@ from sqlalchemy.orm import declarative_base
 words_database = declarative_base()
 
 class Difficulty(words_database):
+    """Difficulty class for the database
+
+    Args:
+        words_database (database): Base class for SQLAlchemy models
+    """
     __tablename__ = 'difficulty'
 
     id = Column(Integer, primary_key=True)

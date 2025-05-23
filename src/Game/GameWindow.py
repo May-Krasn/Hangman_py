@@ -13,7 +13,9 @@ def start_game(category, difficulty, errors_got):
     place_word(category, difficulty)
     start_time = time.time()
 
+
 # ====== GAME
+
 
 def hangman():
     """
@@ -24,11 +26,15 @@ def hangman():
     # depending on amount of errors choosen by player
     # we're adding errors and making drawing
 
-    if errors_change == 10: n = 1
-    elif errors_change == 5:n = 2
+    if errors_change == 10:
+        n = 1
+    elif errors_change == 5:
+        n = 2
     else:
-        if errors == 0: n = 4
-        else: n = 3
+        if errors == 0:
+            n = 4
+        else:
+            n = 3
 
     for i in range(n):
         errors += 1
@@ -56,7 +62,13 @@ def hangman():
                 canvas.create_line(130, 139, 115, 165, width=5)
             case 10:
                 canvas.create_line(130, 140, 145, 165, width=5)
-                lbl = tk.Label(window, text="GAME OVER", font=("Comic Sans MS", 24), bg="#B56E6D", fg="white")
+                lbl = tk.Label(
+                    window,
+                    text="GAME OVER",
+                    font=("Comic Sans MS", 24),
+                    bg="#B56E6D",
+                    fg="white",
+                )
                 lbl.place(x=20, y=20, width=385, height=150)
                 index = 0
                 while index < len(word):
@@ -66,6 +78,7 @@ def hangman():
                     if isinstance(widget, tk.Button):
                         widget.config(state=tk.DISABLED)
                 window.after(3000, lambda: game_over(False))
+
 
 def game_over(won):
     """
@@ -78,6 +91,7 @@ def game_over(won):
     letters.clear()
     word = ""
     from src.GameMenu.PlayerMenu import place_on_window, login, name
+
     clear_window()
 
     end_time = time.time() - start_time
@@ -86,6 +100,7 @@ def game_over(won):
 
     if login != "Guest":
         from src.DataWork.users_work import update_stats
+
         if won:
             update_stats(login, 1, 1, mins, secs)
         else:
@@ -93,7 +108,9 @@ def game_over(won):
 
     place_on_window(login, name)
 
+
 # ========= WORD
+
 
 def place_word(cat, diff):
     """
@@ -121,20 +138,36 @@ def place_word(cat, diff):
         lbl.pack(side=tk.LEFT, padx=5)
         letters.append(lbl)
 
+
 # ========= KEYBOARD
 
+
 def place_keyboard():
-    """
-    Creates and places keyboard buttons
-    """
+    """Places keyboard on the window"""
     global buttons
 
     for char in ascii_lowercase:
-        buttons[char] = tk.Button(window, text=char, command=lambda c=char: on_click(c), font=("Comic Sans MS", 16), disabledforeground="white")
+        buttons[char] = tk.Button(
+            window,
+            text=char,
+            command=lambda c=char: on_click(c),
+            font=("Comic Sans MS", 16),
+            disabledforeground="white",
+        )
 
     for i in range(len(buttons)):
-        if i < 20: buttons.get(ascii_lowercase[i]).place(x=35+(60*(i%10)), y=350+(75*int((i/10))), width=50, height=50)
-        else: buttons.get(ascii_lowercase[i]).place(x=155+(60*(i%10)), y=500, width=50, height=50)
+        if i < 20:
+            buttons.get(ascii_lowercase[i]).place(
+                x=35 + (60 * (i % 10)),
+                y=350 + (75 * int((i / 10))),
+                width=50,
+                height=50,
+            )
+        else:
+            buttons.get(ascii_lowercase[i]).place(
+                x=155 + (60 * (i % 10)), y=500, width=50, height=50
+            )
+
 
 def on_click(x):
     """
@@ -144,27 +177,36 @@ def on_click(x):
     global corrects
 
     if not word.__contains__(x):
-        buttons.get(x).config(state=tk.DISABLED, bg='gray')
+        buttons.get(x).config(state=tk.DISABLED, bg="gray")
         hangman()
     else:
-        buttons.get(x).config(state=tk.DISABLED, bg='lightgreen')
-        index=0
+        buttons.get(x).config(state=tk.DISABLED, bg="lightgreen")
+        index = 0
         while index < len(word):
             index = word.find(x, index)
-            if index == -1: break
+            if index == -1:
+                break
             letters[index].config(text=x)
-            index +=1
+            index += 1
             corrects += 1
 
         if corrects == len(word.replace(" ", "")):
-            lbl = tk.Label(window, text="YOU WON", font=("Comic Sans MS", 24), bg="#85B987", fg="white")
+            lbl = tk.Label(
+                window,
+                text="YOU WON",
+                font=("Comic Sans MS", 24),
+                bg="#85B987",
+                fg="white",
+            )
             lbl.place(x=20, y=20, width=385, height=150)
             for widget in window.winfo_children():
                 if isinstance(widget, tk.Button):
                     widget.config(state=tk.DISABLED)
             window.after(3000, lambda: game_over(True))
 
+
 # ========= CANVA
+
 
 def place_canva():
     """
@@ -173,6 +215,7 @@ def place_canva():
     global canvas
     canvas = tk.Canvas(master=window, width=200, height=250)
     canvas.place(x=430, y=10)
+
 
 # ========= GLOBALS
 buttons = {}
